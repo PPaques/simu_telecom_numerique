@@ -6,25 +6,23 @@
 
 %% générateur de bits aléatoires à transmettre
 % génère un message de n colones chacunes de m bits
-message = round(rand(m,n));
+% TODO : Ajouter un message pilote
+message = round(rand(m-size(sequence_pilote,1),n));
+% on ajoute la séquence pilote dans le système
+sequence_pilote_n_message = repmat(sequence_pilote,1,n);
+message = [sequence_pilote_n_message; message ];
 
-%% codeur PAM
+message_ech_temps = 0 : T_b : (size(message,1)-1)*T_b;
+
+%% codeur PAMtitle('Message à transmettre');
 % transforme les bits en pam
 message_pam = message.*2.-1;
-
-%% création message à transmettre
-
-% peigne de sinus cardinaux
-% vecteur
-%vect = (-2:0.01:2);
-
-%p0 = sinc(vect); % fenetre sur la freq qu'on va utiliser
-%pn = p0;         % il faudra ajouter le cos
-%plot(pn);        % on affiche
+message_pam_ech_temps = 0 : T_b : (size(message_pam,1)-1)*T_b;
 
 %% ajout des zeros pour le suréchantillonage
-message_surech = upsample(message, beta);
 message_surech_pam = upsample(message_pam,beta);
+message_surech_pam_ech_temps = 0 : T_b/beta : (size(message_surech_pam,1)-1)*T_b/beta;
+
 
 %% création d'un FIR en racine de nyquist
 % calcul de coefficient des N FIR
@@ -37,13 +35,12 @@ filtreg_t = rcosfir(alpha,L,beta,T_b,'sqrt')';
 n_can = 1:N-1; 
 % base de temps (voit P3, en dessous eq 5 )
 t = (-L*T_b:T_n:L*T_b)'; 
-% Liste des fréquences sur les quelles on va emettre
+% Liste des fréquences sur lesquelles on va emettre
 W_n = (2*pi*2/T_b) .* n_can;
 
 % Forme d'un symbole sur base du filtre pour chacun des canaux
 p_n = [filtreg_t (filtreg_t*ones(1, N-1)).*cos(t*W_n)]; % on ajoute la freq 0 et les freq Wn
-p_n_f = fftshift(fft(p_n)); % on utilise fft shift pour que l'affichage en fréquence soit beau
-frequences = ((0:1:2*L*beta)-(L*beta))*R;% ?????
+p_n_ech_freq = ((0:1:2*L*beta)-(L*beta))*R; % axe de fréquences
 
 %% convolution
 % convoluer filtre avec message sur échantillon
@@ -56,7 +53,7 @@ message_conv = zeros(beta*(m+2*L),n);
 % on ajoute des 0 si on a moins de messages que de canal dispo (en pratique
 % on convoluera avec des 0 donc on ajoutera rien au signal mais cela permet
 % de réaliser la boucle de convolution
-message_surech_pam= [message_surech_pam zeros(m*beta,N)];
+message_surech_pam = [message_surech_pam zeros(m*beta,N)];
 
 
 % on envoie chaque message sur un canal ? (est ce que c'est ce qui est
@@ -81,14 +78,21 @@ xi = 0:T_a:(beta*(m+2*L)*gamma-1)*T_a;  % échelle analogique de temps
 % Attenion : graphes a refaire en plus beau avec de belles couleurs et
 % toussa quoi sinon on rivalisera pas avec l'ami seb!!!
 
-
 %% Remise au facteur d'échelle
 % Pour que l'emetteur émette à la puissance demandée, il faut le multiplier
 % par le facteur kivabien et toutyramieux
 
 % puissance = U^2/R
 % U = srt(P*R)
-message_final = message_interpol.*sqrt(Z_c*P_t);
+emetteur_final = message_interpol.*sqrt(Z_c*P_t);
 
-% cette dernière partie est a vérifier car j'ai honteusement pompé sur
-% l'ancien rapport sans trop comprendre et c'est mal :(.
+
+
+%% sommation sur le canal
+% une fois sur le canal physique, les composante de chaque fr�quence sont
+% additionn�es aux autres. On se retrouve avec une matrice de 1 colonne
+% avec N lignes. C'est le message qui transiste effectivement sur le canal.
+% On filtre ce signal pour supprimer les composantes supp�rieures � la plus
+% haute fr�quence
+message_sum = sum(message_interpol')';
+

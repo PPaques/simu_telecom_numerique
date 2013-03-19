@@ -7,6 +7,8 @@
 % nombre de messages à envoyer
 n = 4';      % [nombre]
 m = 8;       % [bits]
+sequence_pilote = [1 0 1 1]'; 
+
 % debit binaire
 R = 1000;      % [bits/secondes] 
 
@@ -15,10 +17,8 @@ R = 1000;      % [bits/secondes]
 N=4;
 
 % Paramètres du FIR
-
 alpha = 0.4;  % [nombre] Rolof
 L=4;        % [nombre]
-n_b=1;      % [nombre]
 
 % Puissance voulue sur le cable 
 P_t = 5;    % [Watt]

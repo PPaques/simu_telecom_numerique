@@ -6,6 +6,8 @@
 %% Nettoyage
 clear all;
 close all;
+% stat
+tic
 
 %% initialisation
 % chargement des paramètres
@@ -19,4 +21,9 @@ emetteur;
 
 %% affichage des résultats
 % peut-etre faire un fichier qui génère toutes les figures ? :)
-message_surech
+
+generate_fig;
+
+% stat
+disp('Temps nécessaires pour la simulation :')
+toc
