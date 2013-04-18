@@ -31,10 +31,15 @@ gamma = 10;  % [nombre]
 
 
 %% canal
-% gain
-alpha_n = 1;% [nombre]
-% délais
-Tau_n = 1;  % [s]
+% Attenuation
+alpha_n = 0.5;
+alpha_n = rand(1);% [nombre entre 0 et 1]
+% facteur de délay sur le taux binaire 
+% calculé aléatoirement dans les paramètres calculés (différent pour chaque
+% canal) il faut qu'il y ait le meme nombre de facteurs que de valeur dans
+% le tableau
+canal_delay_fact = [0.01 0.2 0.4 0.1];  % [pourcentage, très petit]
+canal_delay_fact = rand(1,[n,1]); %
 
 %% Récepteur
 % rapport Eb/N0

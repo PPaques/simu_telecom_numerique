@@ -16,12 +16,11 @@ T_n = T_b / beta;
 T_a = T_n / gamma;
 
 
+%% canal
+% délai ajoutés aux signaux du canal
+Tau_n = T_b *canal_delay_fact ; % [durée]   
 
-% Frequence
 
-% Frequences centrales
-
-% 
 
 
 

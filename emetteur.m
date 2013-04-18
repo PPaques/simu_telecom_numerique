@@ -87,12 +87,3 @@ xi = 0:T_a:(beta*(m+2*L)*gamma-1)*T_a;  % échelle analogique de temps
 emetteur_final = message_interpol.*sqrt(Z_c*P_t);
 
 
-
-%% sommation sur le canal
-% une fois sur le canal physique, les composante de chaque fr�quence sont
-% additionn�es aux autres. On se retrouve avec une matrice de 1 colonne
-% avec N lignes. C'est le message qui transiste effectivement sur le canal.
-% On filtre ce signal pour supprimer les composantes supp�rieures � la plus
-% haute fr�quence
-message_sum = sum(message_interpol')';
-

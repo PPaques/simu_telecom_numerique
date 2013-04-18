@@ -16,13 +16,16 @@ params;
 % calcul des variables dependant des paramètres de simulations
 calc_params;
 
-%% calcul des signaux dans l'emetteur
+%% EMETTEUR
 emetteur;
+
+%% CANAL
+canal;
 
 %% affichage des résultats
 % peut-etre faire un fichier qui génère toutes les figures ? :)
 
-generate_fig;
+% generate_fig;
 
 % stat
 disp('Temps nécessaires pour la simulation :')
