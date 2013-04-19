@@ -6,7 +6,6 @@
 
 %% générateur de bits aléatoires à transmettre
 % génère un message de n colones chacunes de m bits
-% TODO : Ajouter un message pilote
 message = round(rand(m-size(sequence_pilote,1),n));
 % on ajoute la séquence pilote dans le système
 sequence_pilote_n_message = repmat(sequence_pilote,1,n);
@@ -53,7 +52,7 @@ message_conv = zeros(beta*(m+2*L),n);
 % on ajoute des 0 si on a moins de messages que de canal dispo (en pratique
 % on convoluera avec des 0 donc on ajoutera rien au signal mais cela permet
 % de réaliser la boucle de convolution
-message_surech_pam = [message_surech_pam zeros(m*beta,N)];
+%message_surech_pam = [message_surech_pam zeros(m*beta,N)];
 
 
 % on envoie chaque message sur un canal ? (est ce que c'est ce qui est
@@ -85,5 +84,3 @@ xi = 0:T_a:(beta*(m+2*L)*gamma-1)*T_a;  % échelle analogique de temps
 % puissance = U^2/R
 % U = srt(P*R)
 emetteur_final = message_interpol.*sqrt(Z_c*P_t);
-
-

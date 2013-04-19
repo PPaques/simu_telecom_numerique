@@ -22,11 +22,14 @@ emetteur;
 %% CANAL
 canal;
 
-%% affichage des résultats
-% peut-etre faire un fichier qui génère toutes les figures ? :)
+%% RECEPTEUR
+recepteur;
 
-% generate_fig;
+%% RESULTATS
+% generate_fig_emetteur;
+generate_fig_canal;
 
 % stat
 disp('Temps nécessaires pour la simulation :')
 toc
+

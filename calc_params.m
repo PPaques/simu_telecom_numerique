@@ -15,12 +15,10 @@ T_n = T_b / beta;
 % Durée d'un échantillon Analogique
 T_a = T_n / gamma;
 
-
 %% canal
-% délai ajoutés aux signaux du canal
-Tau_n = T_b *canal_delay_fact ; % [durée]   
-
-
-
-
-
+% facteur de délay sur le taux binaire 
+% calculé aléatoirement dans les paramètres calculés (différent pour chaque
+% canal) il faut qu'il y ait le meme nombre de facteurs que de valeur dans
+% le tableau. Le nombre doit être compris entre 0 et beta*gamma car le nombre
+% d’échantillons pour t_b est ce nombre
+tau_n = randi([0 beta*gamma],1,N);

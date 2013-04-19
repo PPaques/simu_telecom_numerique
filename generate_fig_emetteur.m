@@ -1,4 +1,4 @@
-%% Params : contient tous les paramètres de simulation
+%% generate_fig_emetteur : génère toutes les figures de l'emetteur
 % Script de simulation d'une chaine complète de télécommunications
 % Par Nicolas Segui et Pierre Paques
 % 2012-2013
