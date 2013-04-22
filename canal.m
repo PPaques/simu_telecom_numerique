@@ -14,19 +14,22 @@
 
 % on fait un vecteur de décalement de la taille de la matrice
 canal_retard_zero = [ emetteur_final ; zeros(beta*gamma, N) ];
+%utilis� pour les graphique
+canal_delay = canal_retard_zero;
 % nouvelle echelle de temps, on ajouter beta*gamma echantillons
 canal_retard_zero_ech_temps = 0:T_a:(((beta*(m+2*L)*gamma)+(beta*gamma))-1)*T_a; 
 
 for i = 1:N
-	canal_retard_zero(:,i) = circshift(canal_retard_zero(:,i),tau_n(i));
+	canal_delay(:,i) = circshift(canal_delay(:,i),tau_n(i));
 end
 
-canal_time = canal_retard_zero;
+canal_time = canal_delay;
 
 %% Ajout d'un facteur d'attenuation
 % choisis de façon aléatoire mais identique pour tous les cannaux
 % le facteur est le meme pour tous les canaux 
 canal_att = canal_time * alpha_n;
+canal_att_bruit = awgn(canal_att, snr);%utilise pour les graphiques
 
 
 %% sommation sur le canal

@@ -23,10 +23,10 @@ emetteur;
 canal;
 
 %% RECEPTEUR
-recepteur;
+%recepteur;
 
 %% RESULTATS
-% generate_fig_emetteur;
+%generate_fig_emetteur;
 generate_fig_canal;
 
 % stat

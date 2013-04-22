@@ -6,7 +6,7 @@
 %% général
 % nombre de messages à envoyer
 n = 4';      % [nombre]
-m = 8;       % [bits]
+m = 4;       % [bits]
 sequence_pilote = [1 0 1 1]'; 
 
 % debit binaire
@@ -43,15 +43,17 @@ alpha_n = rand(1);% [nombre entre 0 et 1]
 tau_n = [5 25 1 4];  % [pourcentage, très petit]
 
 % Rapport signal a bruit qui sera ajouté sur le canal
-snr = 50;
+snr = 10;
 
 %% Récepteur
 % rapport Eb/N0
 R_Eb_under_N0 = 1;
 
 % Paramètre filtre analogique
+recepteur_filter_order = 5;
+
+%
 nature = 1;
-ordre = 1 ;
 ripple = 1;
 attenuation = 1;
 
