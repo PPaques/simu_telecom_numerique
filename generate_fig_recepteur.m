@@ -78,9 +78,9 @@ legend('canal 3','canal 2', 'canal 1');
 % affichage de la corrélation entre le signal et la séquence pilote et
 % prise du poinr maximal
 for i = 1:N
-    amp = max(recepteur_xcorr_x(:,i))*1.2;
+    amp = max(recepteur_xcorr_x(:,i))*1.20;
     figure(41+i)
-    plot(recepteur_xcorr_y(:,i)*T_n,recepteur_xcorr_x(:,i),'',recepteur_xcorr_y(recepteur_xcorr_max(1,i),n)*T_n,recepteur_xcorr_x(recepteur_xcorr_max(1,i),i),'c*',recepteur_xcorr_y(recepteur_xcorr_max(1,i),i),recepteur_xcorr_x(recepteur_xcorr_max(1,i),i),'co')
+    plot(recepteur_xcorr_y(:,i)*T_n,recepteur_xcorr_x(:,i),'',recepteur_xcorr_y(recepteur_xcorr_max_indice(1,i),i)*T_n,recepteur_xcorr_x(recepteur_xcorr_max_indice(1,i),i),'c*',recepteur_xcorr_y(recepteur_xcorr_max_indice(1,i),i),recepteur_xcorr_x(recepteur_xcorr_max_indice(1,i),i),'co')
     title(['Corrélation du signal ',int2str(i),' avec la séquence pilote avec un Délai de ',num2str(recepteur_retards(1,i)*1000*T_n),'ms'])
     axis([recepteur_xcorr_y(1,i)*T_n recepteur_xcorr_y(end,i)*T_n -amp amp])
     xlabel('Temps (s)');
@@ -105,7 +105,7 @@ grid
 for i = 1:N
     amp = max(abs(signal_FA(:,i)))*1.20;
     figure (50+i)
-    plot(T_n_FA,signal_FA(:,i),'',T_n_FA(k(:,i)),signal_FA(k(:,i),n),'*');
+    plot(T_n_FA,signal_FA(:,i),'',T_n_FA(k(:,i)),signal_FA(k(:,i),i),'*');
     title(['Estimation des symboles sur le signal R tot ',int2str(i),'(t)']);
     xlabel('Temps (s)'); ylabel('Amplitude du signal') ;
     legend('Signal reçu','Symboles estimés');

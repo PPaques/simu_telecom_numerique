@@ -5,12 +5,12 @@
 
 %% général
 % nombre de messages à envoyer
-n = 4';      % [nombre]
-m = 1000;       % [bits utiles a envoyer]
+n = 3';      % [nombre]
+m = 6;       % [bits utiles a envoyer]
 sequence_pilote = [1 0 1 1]'; 
 
 % debit binaire
-R = 300;      % [bits/secondes] 
+R = 1000;      % [bits/secondes] 
 
 %% emetteur
 % nombre de ressources disponibles 
