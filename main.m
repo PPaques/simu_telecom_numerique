@@ -23,13 +23,21 @@ emetteur;
 canal;
 
 %% RECEPTEUR
-%recepteur;
+recepteur;
+
+%% RESULTATS
+resultats;
+
+%% BONUS
+%bonus;
 
 %% RESULTATS
 %generate_fig_emetteur;
-generate_fig_canal;
+%generate_fig_canal;
+%generate_fig_recepteur;
 
 % stat
-disp('Temps nécessaires pour la simulation :')
+disp(' ')
+disp(' ')
+disp('Temps necessaire pour la simulation : ')
 toc
-

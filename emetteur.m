@@ -55,8 +55,7 @@ message_conv = zeros(beta*(m+2*L),n);
 %message_surech_pam = [message_surech_pam zeros(m*beta,N)];
 
 
-% on envoie chaque message sur un canal ? (est ce que c'est ce qui est
-% demandé je suis pas sur :( ) 
+% on envoie chaque message sur un canal 
 for i=1:N
     message_conv(:,i) = conv(message_surech_pam(:,i), p_n(:,i));
 end

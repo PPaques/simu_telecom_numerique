@@ -6,11 +6,11 @@
 %% général
 % nombre de messages à envoyer
 n = 4';      % [nombre]
-m = 4;       % [bits]
+m = 1000;       % [bits utiles a envoyer]
 sequence_pilote = [1 0 1 1]'; 
 
 % debit binaire
-R = 1000;      % [bits/secondes] 
+R = 300;      % [bits/secondes] 
 
 %% emetteur
 % nombre de ressources disponibles 
@@ -43,19 +43,19 @@ alpha_n = rand(1);% [nombre entre 0 et 1]
 tau_n = [5 25 1 4];  % [pourcentage, très petit]
 
 % Rapport signal a bruit qui sera ajouté sur le canal
-snr = 10;
+snr = 1;
 
 %% Récepteur
+% Paramètre filtre entrée pour le découpage en fréquence
+recepteur_ripple= 0.5;   % [ dB ]
+recepteur_ordre = 3;     % [number]
+type_filtre = 'B';
+resolution_adc = 5;      %bits
+
+
 % rapport Eb/N0
-R_Eb_under_N0 = 1;
+% non utilisé => SNR Attention que le SNR est en DB
+% R_Eb_under_N0 = 1;
 
-% Paramètre filtre analogique
-recepteur_filter_order = 5;
 
-%
-nature = 1;
-ripple = 1;
-attenuation = 1;
 
-% seuil v pour récepteur simplifié
-V = 0.75;
