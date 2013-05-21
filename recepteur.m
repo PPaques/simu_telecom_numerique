@@ -24,7 +24,7 @@ end
 if type_filtre == 'B'
     [b,a] = butter(recepteur_ordre, b_pass,'low','s');
 end
-% On construit le spectre fr�quenciel au d�part des coefficients trouv�s
+% On construit le spectre frequenciel au depart des coefficients trouves
 filtres_coeff(:, 1) = freqs(b, a, f_freqs)';
 
 % Filtre pour les canaux 2..N
@@ -58,9 +58,9 @@ for i=1:N
 end
 
 
-%% Mise � l'�chelle (auto-gain)
-% chaque canal subit une att�nuation diff�rente en plus de l'apmplifaction pour l'amener � la puissance voulue
-% le gain � appliquer est  donc calcul� pour chaque canal pour la plus haute cr�te soit � 1
+%% Mise a l'echelle (auto-gain)
+% chaque canal subit une att�nuation differente en plus de l'apmplifaction pour l'amener a la puissance voulue
+% le gain a appliquer est donc calcule pour chaque canal pour la plus haute crete soit a 1
 ech_max = zeros(1,N);
 signal_mit_echelle = zeros(length(recepteur_signal_anal_conv),N);
     
@@ -72,13 +72,13 @@ end;
 
 %% Recepteur ideal
 % Il est constitue de : 
-%    * Filtre adapte a� alpha_n * p_n (t-tau_n)
+%    * Filtre adapte a alpha_n * p_n (t-tau_n)
 %    * echantilloneur estimateur des symboles
 % Il peut etre realise de cette maniere :
-%    * echantillonnage du signal sur n_b a� cadence 1/t_n
+%    * echantillonnage du signal sur n_b a cadence 1/t_n
 %    * effectue un filtrage numerique avec un FIR adapte au FIR de l'emetteur 
 
-% Echantillonage (downsample pour passer analo au num�rique)
+% Echantillonage (downsample pour passer analo au numerique)
 recepteur_echantillon = downsample(signal_mit_echelle,gamma);% sousechantillonnage
 T_n_recep = (0:1:(length(recepteur_signal_anal_conv)-1)/gamma)*T_n; % base de temps recepteur
 
@@ -93,9 +93,9 @@ for i = 1:N
 end
 %plot(T_n_recep,signal_quantif);
 
-%convolution filtre num�rique
-signal_FA = zeros(length(conv(signal_quantif(:,1),p_n(:,1))),N); %Signal apr�s passage dans le Filtre Adapt�
-T_n_FA = 0:T_n:(length(conv(signal_quantif(:,1),p_n(:,1)))-1)*T_n; %base de temps apr�s filtre adapt�, � voir si on garde
+%convolution filtre numerique
+signal_FA = zeros(length(conv(signal_quantif(:,1),p_n(:,1))),N); %Signal apres passage dans le Filtre Adapte
+T_n_FA = 0:T_n:(length(conv(signal_quantif(:,1),p_n(:,1)))-1)*T_n; %base de temps apres filtre adapte, a voir si on garde
 for i = 1:N        
     signal_FA(:,i)=conv(signal_quantif(:,i),p_n(:,i));
 end;
@@ -108,7 +108,7 @@ end;
 % bons endroits
 %   * Le recepteur doit generer la sequence pilote
 %   * Ensuite il fait un correlation entre la sequence pilote et le signal.
-%   * le temps de synchronisation est pris la� ou le resultat de la
+%   * le temps de synchronisation est pris la ou le resultat de la
 %   correlation est maximal
 %   * Les signaux suivant sont localise par comtage (k_0 + k * beta)
 
@@ -142,7 +142,7 @@ end
 % initialisation des variables (performance issue)
 recepteur_long_correlation = (length(recepteur_sync_seq_pilote)+beta*1.5)*2-1; % A trouver 
 recepteur_xcorr_x   = zeros(recepteur_long_correlation,N); %valeur de la correlation
-recepteur_xcorr_y   = zeros(recepteur_long_correlation,N); %valeur du d�calage entre le signal et la s�quence pilote
+recepteur_xcorr_y   = zeros(recepteur_long_correlation,N); %valeur du decalage entre le signal et la sequence pilote
 recepteur_xcorr_max_indice = zeros(1,N);
 recepteur_retards   = zeros(1,N);
 
@@ -164,14 +164,14 @@ an_k = zeros(m,N); %matrice des symboles
 k = zeros(m,N); %autre matrice des symboles
 k0 = zeros(1,N); %matrice des d�calages
 for i = 1:N
-    k0(:,i) = recepteur_retards(1,i)+L*beta; %L*beta = un �chantantillon dans la base temps du filtre + retard. Si pas de retard, on prend la valeur en L*beta
+    k0(:,i) = recepteur_retards(1,i)+L*beta; %L*beta = un echantantillon dans la base temps du filtre + retard. Si pas de retard, on prend la valeur en L*beta
     k(:,i) = ((k0(:,i)+1):beta:(k0(:,i)+m*beta));
     an_k(:,i) = signal_FA(k(:,i),i);
 end
 
 %% prise de decision
 % prise de decisions selon la formule :
-%   * 1 si a_n(k) appartient a� S+
+%   * 1 si a_n(k) appartient a S+
 %   * 0 si a_n(k) appartient a S- 
 %   * Indetermine dans 3e cas
 %
@@ -181,7 +181,7 @@ end
 %   * interferences entre symboles
 %   * erreurs de synchronisation
 
-% a été simplifié par manque de temps 
+% a ete simplifie par manque de temps 
 
 r = an_k;
 r(r>0) = 1;
@@ -197,13 +197,13 @@ transmission_errors_total = sum(sum(xor(message,r))');
 
 %% Recepteur simplifie
 % la realisation d'un filtre ideal est tres couteux en ressources; Dans les
-% recepteurs qui sont limites en ressources, on va se limiter a� faire cette
+% recepteurs qui sont limites en ressources, on va se limiter a faire cette
 % procedure
 %   * filtre adapte abandonne. On estime le symbole en choissisant un
 %         echantillon bien place. On place donc un filtre de niquist complet
 %         dans l'emetteur => moins bonne resistance au bruit/
 %   * ADC supprime. => remplace par un comparateur a deux seuils symetriques. 
-%         Choix des seuils doit etre important pr correspondre a� la dynamique.
+%         Choix des seuils doit etre important pr correspondre a la dynamique.
 %   * Synchronisation sans correlation
 %         -> etude prealable de l'effet de la sequence pilote sur le
 %         comparateur ET comparaison position des  declenchements positifs et negatifs

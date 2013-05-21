@@ -1,5 +1,5 @@
 %% Main : scipt principal
-% Script de simulation d'une chaine complète de télécommunications
+% Script de simulation d'une chaine complete de telecommunications
 % Par Nicolas Segui et Pierre Paques
 % 2012-2013
 
@@ -10,10 +10,10 @@ close all;
 tic
 
 %% initialisation
-% chargement des paramètres
+% chargement des parametres
 params;
 
-% calcul des variables dependant des paramètres de simulations
+% calcul des variables dependant des parametres de simulations
 calc_params;
 
 %% EMETTEUR

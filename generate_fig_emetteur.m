@@ -1,12 +1,12 @@
-%% generate_fig_emetteur : génère toutes les figures de l'emetteur
-% Script de simulation d'une chaine complète de télécommunications
+%% generate_fig_emetteur : genere toutes les figures de l'emetteur
+% Script de simulation d'une chaine complete de telecommunications
 % Par Nicolas Segui et Pierre Paques
 % 2012-2013
 
 
 %% Emmetteur
 
-% signal de départ
+% signal de depart
 figure(1);
 
 subplot(231)
@@ -19,7 +19,7 @@ xlabel('Temps');ylabel('Amplitude');title('Message 1 : PAM');
 
 subplot(233)
 stem(message_surech_pam_ech_temps,message_surech_pam(:,1),'*');
-xlabel('Temps');ylabel('Amplitude');title('Message 1 : sur-échantillonné');
+xlabel('Temps');ylabel('Amplitude');title('Message 1 : sur-echantillonne');
 
 subplot(234)
 stem(message_ech_temps,message(:,2),'*');
@@ -31,7 +31,7 @@ xlabel('Temps');ylabel('Amplitude');title('Message 2 : PAM');
 
 subplot(236)
 stem(message_surech_pam_ech_temps,message_surech_pam(:,2),'*');
-xlabel('Temps');ylabel('Amplitude');title('Message 2 : sur-échantillonné');
+xlabel('Temps');ylabel('Amplitude');title('Message 2 : sur-echantillonne');
 
 % comparaison des longueurs filtres FIR
 figure(2);
@@ -52,7 +52,7 @@ subplot(144)
 plot(rcosfir(alpha,100,beta,T_b,'sqrt')')
 xlabel('Echantillons');title('filtre FIR Longueur 100');grid on;
 
-% comparaison pour différents facteurs de rolof
+% comparaison pour differents facteurs de rolof
 figure(3);
 subplot(231)
 plot(rcosfir(0,L,beta,T_b,'sqrt')')
@@ -78,22 +78,22 @@ subplot(236)
 plot(fftshift(abs(fft(rcosfir(1,L,beta,T_b,'sqrt')'))))
 xlabel('Echantillons');title('Facteur Rolloff 1');grid on;
 
-% affichage de notre filtre réparti sur plusieurs fréquences
+% affichage de notre filtre reparti sur plusieurs frequences
 figure(4);
 subplot(211)
 plot(p_n)
 title('Filtres en temporel');grid on;
 
 subplot(212)
-plot(p_n_ech_freq, fftshift(abs(fft(p_n))));  % on utilise fft shift pour que l'affichage en fréquence soit beau
-xlabel('Frequence');title('Filtre en fréquentiel');grid on;
+plot(p_n_ech_freq, fftshift(abs(fft(p_n))));  % on utilise fft shift pour que l'affichage en frequence soit beau
+xlabel('Frequence');title('Filtre en frequentiel');grid on;
 
-% Message convolué et interpolé
+% Message convolue et interpole
 figure(5);
 
 subplot(211)
 plot(x, message_conv(:,1), 'o',xi,message_interpol(:,1))
-title('Message devant etre envoyé sur le canal 1'); grid on;
+title('Message devant etre envoye sur le canal 1'); grid on;
 subplot(212)
 plot(xi, emetteur_final(:,1))
 title('message final sur le canal 1 (bonne puissance)'); grid on;

@@ -1,5 +1,5 @@
-%% generate_fig_canal : Génération des figures du canal
-% Script de simulation d'une chaine complète de télécommunications
+%% generate_fig_canal : Generation des figures du canal
+% Script de simulation d'une chaine complete de telecommunications
 % Par Nicolas Segui et Pierre Paques
 % 2012-2013
 message_en_cours = 2;
