@@ -5,8 +5,8 @@
 
 %% general
 % nombre de messages a envoyer
-n = 3';      % [nombre]
-m = 6;       % [bits utiles a envoyer]
+n = 1;      % [nombre]
+m = 50;       % [bits utiles a envoyer]
 sequence_pilote = [1 0 1 1]'; 
 
 % debit binaire
@@ -17,11 +17,11 @@ R = 1000;      % [bits/secondes]
 N=n;
 
 % Parametres du FIR
-alpha = 0.4;  % [nombre] Rolof
+alpha = 0.5;  % [nombre] Rolof
 L=4;        % [nombre]
 
 % Puissance voulue sur le cable 
-P_t = 5;    % [Watt]
+P_t = 0.5;    % [Watt]
 
 % Impedence caracteristique du cable
 Z_c = 50;    % [Ohms]
@@ -50,7 +50,12 @@ snr = 1;
 recepteur_ripple= 0.5;   % [ dB ]
 recepteur_ordre = 3;     % [number]
 type_filtre = 'B';
-resolution_adc = 5;      %bits
+resolution_adc = 2;      %bits
+
+% prise de décision
+recepteur_decision_high = 0.01;
+recepteur_decision_low = 0.01;
+
 
 
 % rapport Eb/N0

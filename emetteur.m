@@ -82,4 +82,5 @@ xi = 0:T_a:(beta*(m+2*L)*gamma-1)*T_a;  % echelle analogique de temps
 
 % puissance = U^2/R
 % U = srt(P*R)
+%emetteur_final = message_interpol;
 emetteur_final = message_interpol.*sqrt(Z_c*P_t);

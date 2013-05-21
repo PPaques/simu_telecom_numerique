@@ -8,6 +8,9 @@
 T_b = 1/R; % [s/bits]
 % pour bien envoyer le bon nombre effectif de bits
 m=m+length(sequence_pilote); 
+% nombre de bits transmis
+nb_bits_transmis = n*m;
+
 
 %% emetteur
 % Facteur de surechantillonage du FIR
@@ -23,8 +26,9 @@ T_a = T_n / gamma;
 % canal) il faut qu'il y ait le meme nombre de facteurs que de valeur dans
 % le tableau. Le nombre doit etre compris entre 0 et beta*gamma car le nombre
 % d’echantillons pour t_b est ce nombre
-tau_n = randi([0 beta*gamma],1,N);
-
+if exist('bonus_mode')
+    tau_n = randi([0 beta*gamma],1,N);
+end
 %% recepteur
 %bande passante pour chaque fr�quence
 b_pass = (1+alpha)/(2*T_b); 

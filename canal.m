@@ -38,15 +38,18 @@ canal_att_bruit = awgn(canal_att, snr);%utilise pour les graphiques
 % avec N lignes. C'est le message qui transiste effectivement sur le canal.
 % On filtre ce signal pour supprimer les composantes supperieures a la plus
 % haute frequence
-canal_sum = sum(canal_att')';
-
+if N ~= 1
+    canal_sum = sum(canal_att')';
+else 
+    canal_sum = canal_att;
+end
 
 %% ajout d'un bruit blanc a ce signal.
 % il faut calculer un bruit blan que l'on va ajouter au signal
 % il sera de densite spectrale bilaterale N_0 /2
 
 % bruit blanc AWGN... il existe la fonction
-canal_final = awgn(canal_sum, snr);
+canal_final = awgn(canal_sum, snr, 'measured');
 %canal_final = canal_sum + snr * randn(size(canal_sum));
 
 % je crois que randn permet de generer des distributions de sigma, il reste

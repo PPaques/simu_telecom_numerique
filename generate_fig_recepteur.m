@@ -12,7 +12,7 @@ axis([0 (2*N/T_b) 0 1]); grid;
 xlabel('Frequence (Hz)');
 ylabel('Amplitude du spectre') ;     
 
-% affichage des filtres en temporel : normal et tronque
+% affichage des filtres en temporel 
 for i = 1 : N
     figure(30+i)
     plot(filtres_a_temporel(:,i))
@@ -20,43 +20,27 @@ for i = 1 : N
     grid;
     xlabel('Nombre d''echantillons');
     ylabel('Amplitude');
-% 
-%         figure
-%         plot(h_t_tronc(:,i))
-%         title(['Reponse impulsionnelle du canal ',int2str(i),' tronquee'])
-%         grid
-%         xlabel('Nombre d''echantillons')
-%         ylabel('Amplitude')
 end
 
-%     % affichage de l'influence de la troncature
-% 	figure(36)
-%     amp = max(abs(H(:,1)));
-%     plot(fi,abs(H(:,:)),fi,abs(H_tronc(:,:)))
-%     title(['Influence de la troncature'])
-%     axis([0 (2*N/Tb) 0 amp])
-%     xlabel('Frequence (Hz)')
-%     ylabel('Amplitude du spectre')    
-%     grid
-%     
-%     % affichage du filtrage du signal
-% 	figure
-%     amp = max(abs(fft(R_tot)));
-%     plot(fi,2*amp*abs(H_tronc(:,:)),fi*2,abs(fft(R_tot)))
-%     title(['Filtrage aux differentes porteuses'])
-%     axis([0 (2*N/Tb) 0 amp*1.5])
-%     xlabel('Frequence (Hz)')
-%     ylabel('Amplitude du spectre')    
-%     grid
-%     
-%     % signal filtre aux differentes porteuses
-%     figure
-%     plot(frn,abs(fft(rn_an)))
-%     title(['Signal filtre aux differentes porteuses'])
-%     axis([0 (2*(N-1)/Tb+Bp/(2*pi)) 0 amp/2]) 
-%     xlabel('Frequence (Hz)')
-%     ylabel('Amplitude du spectre')    
-%     grid
+   
+    % affichage du filtrage du signal
+	figure
+    amp = max(abs(fft(R_tot)));
+    plot(fi,2*amp*abs(H_tronc(:,:)),fi*2,abs(fft(R_tot)))
+    title(['Filtrage aux differentes porteuses'])
+    axis([0 (2*N/Tb) 0 amp*1.5])
+    xlabel('Frequence (Hz)')
+    ylabel('Amplitude du spectre')    
+    grid
+    
+    % signal filtre aux differentes porteuses
+    figure
+    plot(frn,abs(fft(rn_an)))
+    title(['Signal filtre aux differentes porteuses'])
+    axis([0 (2*(N-1)/Tb+Bp/(2*pi)) 0 amp/2]) 
+    xlabel('Frequence (Hz)')
+    ylabel('Amplitude du spectre')    
+    grid
 
 
 %% synchronisation

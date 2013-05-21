@@ -4,39 +4,7 @@
 % 2012-2013
 
 %% Bonus 1 : Le diagramme de l'oeil
-% Qu'est ce que c'est ? : 
-%       Il permet d'evaluer qualitativement la qualite de transmission
-%       numerique lordqu'il y a de l'interference entre symbole.
-% C'est la syperposition de toutes les realisations possibles du signal
-% reçu dans un interval bien determine autour de l'instant
-% d'echantillonnage T0. (pris par l'algo de synchro)
-
-% Ex : [T0 - t_b; T0+ t_b]
-%  L'ouverture de l'oeil donne la mesure de la qualite de transmission
-
-% A faire : 
-%    - Afficher le diagramme de l'oeil a la sortie du filtre adpate pour un
-%        canal parfait (pas de bruit ni decalage analogique)
-%    - Etudier l'influance du facteur alpha et de la longueur 2LTb du FIR
-%        analogique sans bruit.
-%    - On observe ensuite l'influance bruit, du filtrage analogique, et
-%        enfin de l'interference provenantdes autres canaux
-% 
-% % Create an eye diagram object
-% eyeObj = commscope.eyediagram(...
-%     'SamplingFrequency', 1/T_a, ...
-%     'SamplesPerSymbol', 1000, ...
-%     'OperationMode', 'Real Signal')
-% 
-% eyeObj.MinimumAmplitude = -5;
-% eyeObj.MaximumAmplitude = 5;
-% 
-% % Update the eye diagram object with the transmitted signal
-% eyeObj.update(0.5*signal_FA(:,2));
-% 
-% % Manage the figures
-% managescattereyefig(hFig, eyeObj, 'right');
-
+% voir oeil.m
 
 %% Bonus 2 : Le taux d'erreur binaire
 % voir fichier ber.m
@@ -109,7 +77,7 @@ legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 figure(106)
 hold on
 plot(w/pi*180,gd_cc);
-title(['D�lai de groupe de Cheby1']);
+title(['Delai de groupe de Cheby1']);
 legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 
 
@@ -149,7 +117,7 @@ plot(mag2db(abs(bonus_filter_cauer)));
 title(['Filtre de Cauer']);
 legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 
-%d�lai groupe du cauer
+%delai groupe du cauer
 figure(116)
 hold on
 plot(w/pi*180,gd_cau);

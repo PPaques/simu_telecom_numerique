@@ -17,8 +17,8 @@ disp(' ');
 disp('Parametres emmetteur');
 disp(['Facteur alpha     : ',num2str(alpha)]);
 disp(['Longueur filtre   : ',num2str(L)]);
-disp(['Impedence calbe   : ',num2str(P_t)]);
-disp(['Puissance cable   : ',num2str(Z_c)]);
+disp(['Impedence calbe   : ',num2str(Z_c)]);
+disp(['Puissance cable   : ',num2str(P_t)]);
 disp(['Surechantillonnage: ',num2str(gamma)]);
 disp(' ');
 
@@ -34,6 +34,8 @@ disp('Parametres recepteur');
 disp(['Type de filtre    : ',type_filtre]);
 disp(['Facteur ripple    : ',num2str(recepteur_ripple)]);
 disp(['Resolution ADC    : ',num2str(resolution_adc)]);
+disp(['Seuil décision h. : ',num2str(recepteur_decision_high)]);
+disp(['Seuil décision b. : ',num2str(recepteur_decision_low)]);
 disp(' ');
 
 
@@ -42,8 +44,10 @@ disp(' ');
 
 %% on affiche les erreurs
 disp('Resultats de la simulations : ');
+disp(['Nombre de bits transmis : ', num2str(nb_bits_transmis)])
 disp(['Nombre erreur par canal : ', num2str(transmission_error_by_canal)]);
 disp(['Nombre erreur totales   : ', num2str(transmission_errors_total)]);
+disp(['Taux d erreur binaire   : ', num2str(transmission_errors_total*100/nb_bits_transmis),' %'])
 
 %% on laisse un espace pour l'affichage
 disp(' ');

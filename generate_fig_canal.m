@@ -2,7 +2,7 @@
 % Script de simulation d'une chaine complete de telecommunications
 % Par Nicolas Segui et Pierre Paques
 % 2012-2013
-message_en_cours = 2;
+message_en_cours = 1;
 
 %Comparaison entre le signal en sortie de l'emetteur et apres dephasage
 figure(10);

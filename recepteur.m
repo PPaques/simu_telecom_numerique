@@ -43,6 +43,7 @@ end
 
 % Symetrie des filtres pour ajouter les frequences miroires
 filtres_a = zeros(2*l_dac,N);
+%filtres_a = zeros(l_dac,N);
 filtres_a(1:l_dac,:) = filtres_coeff;
 filtres_a(2*l_dac:-1:l_dac+1,:) = conj(filtres_coeff);
 
@@ -50,11 +51,14 @@ filtres_a(2*l_dac:-1:l_dac+1,:) = conj(filtres_coeff);
 filtres_a_temporel = real(ifft(filtres_a));
 filtres_a_temporel = fliplr(filtres_a_temporel')';
 
+
+
+
 % filtrage du signal recu par la convolution avec le filtre 
-recepteur_signal_anal_conv = zeros(2*l_dac,N);
+recepteur_signal_anal_conv = zeros(length(conv(canal_final,filtres_a_temporel(:,1))),N);
 for i=1:N
     conv_temp = conv(canal_final,filtres_a_temporel(:,i));
-    recepteur_signal_anal_conv(:,i) = conv_temp(1:2*l_dac,1);
+    recepteur_signal_anal_conv(:,i) = conv_temp(:,1);
 end
 
 
@@ -159,6 +163,9 @@ for i=1:N
 end
 
 %stem(recepteur_retards) %affichage des retards
+%t_i = (randi(10,1,1)-5)/100;+floor(t_i*L*beta) invertitude sur l'instant
+%de synchro
+
 
 an_k = zeros(m,N); %matrice des symboles
 k = zeros(m,N); %autre matrice des symboles
@@ -184,9 +191,8 @@ end
 % a ete simplifie par manque de temps 
 
 r = an_k;
-r(r>0) = 1;
-r(r<0) = 0;
-%stem(r(:,1))
+r(r>recepteur_decision_high) = 1;
+r(r<recepteur_decision_low) = 0;
 
 %% calcul du nombre d'erreur
 %xor(message,r)
