@@ -32,7 +32,7 @@ n=3;    % nombre de cannaux
 N=n;
 m = 1000; % nombre de messages
 type = 'complete'; % complete
-nombre_calc_by_point = 100;
+nombre_calc_by_point = 500;
 calc_params; % calcul des variables dependant des parametres de simulations
 
 
