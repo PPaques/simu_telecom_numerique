@@ -30,9 +30,9 @@ params;      % chargement des parametres
 %% on surcharge le nombre de bits a transmettre et le nombre de cannaux
 n=3;    % nombre de cannaux
 N=n;
-m = 10; % nombre de messages
+m = 1000; % nombre de messages
 type = 'complete'; % complete
-nombre_calc_by_point = 250;
+nombre_calc_by_point = 100;
 calc_params; % calcul des variables dependant des parametres de simulations
 
 
@@ -47,6 +47,7 @@ resultats_ber_chebby = zeros(nombre_calc_by_point,N);
 compteur=1;
 total_simulation_to_do = length(Eb_under_n0_vector)*nombre_calc_by_point;
 total_bits_tranmis = (m+4)*N * nombre_calc_by_point * 10;
+disp(['nombre total de bits qui seront transmis :',num2str(total_bits_tranmis)]); 
 
 % On passe par tous les SNR possibles
 for eb = 1:length(Eb_under_n0_vector)
@@ -84,13 +85,15 @@ bit_error_rate_practical_butter = mean(resultats_ber_butter);
 bit_error_rate_practical_chebby = mean(resultats_ber_chebby);
 
 
-disp(['nombre total de bits transmis : ',num2str(total_bits_tranmis)]);
-disp(['nombre total erreur butter    : ',num2str(bit_error_rate_practical_butter)]);
-disp(['nombre total erreur chebby    : ',num2str(bit_error_rate_practical_chebby)]);
-
 %% Courbe theorique
 BER_theorique = 0.5*erfc(sqrt(10.^(Eb_under_n0_vector/10)));
 
+
+%% affichage
+disp(['nombre total de bits transmis : ',num2str(total_bits_tranmis)]);
+disp(['nombre total erreur theoriques: ',num2str(BER_theorique)]);
+disp(['nombre total erreur butter    : ',num2str(bit_error_rate_practical_butter)]);
+disp(['nombre total erreur chebby    : ',num2str(bit_error_rate_practical_chebby)]);
    
 %% on affiche le BER
 figure(99);
@@ -102,5 +105,5 @@ else
 end
 grid; ylabel('BER');
 xlabel('E_b/N_0 [dB]');
-title('Rapport entre BER et E_b/N_0');
+title(['BER avec ',num2str(total_bits_tranmis),' bits transmis']);
 legend('courbe theorique','Butterworth','Chebby');

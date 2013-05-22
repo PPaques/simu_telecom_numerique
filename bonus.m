@@ -50,7 +50,7 @@ legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 figure(101)
 hold on
 plot(w/pi*180,gd_bb);
-title(['D�lai de groupe de Butter']);
+title(['Delai de groupe de Butter']);
 legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 
 %reponse impulsionnelle
@@ -100,13 +100,13 @@ legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 figure(111)
 hold on
 plot(w/pi*180,gd_ccc);
-title(['D�lai de groupe de Cheby2']);
+title(['Delai de groupe de Cheby2']);
 legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 
 % cauer OK (parametres changes et testes)
 for ccc= 1:3
     [coebb,coeba] = ellip(ccc, bonus_filter_ripple, bonus_filter_attenuation,bonus_filter_f_freqs, 'low', 's');
-    [gd_cau(:,ccc),w] = grpdelay(coebb,coeba); %d�lai de groupe
+    [gd_cau(:,ccc),w] = grpdelay(coebb,coeba); %delai de groupe
     bonus_filter_cauer(:,ccc) = freqs(coebb, coeba, bonus_filter_f_freqs)';
 end
 
@@ -121,7 +121,7 @@ legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 figure(116)
 hold on
 plot(w/pi*180,gd_cau);
-title(['D�lai de groupe de Cauer']);
+title(['Delai de groupe de Cauer']);
 legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 
 % bessel
@@ -142,7 +142,7 @@ legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 figure(121)
 hold on
 plot(w/pi*180,gd_bes);
-title(['D�lai de groupe de Bessel']);
+title(['Delai de groupe de Bessel']);
 legend('Ordre 1', 'Ordre 2', 'Ordre 3');
 
 

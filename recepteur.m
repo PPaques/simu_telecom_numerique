@@ -192,11 +192,9 @@ r(r>recepteur_decision_high) = 1;
 r(r<recepteur_decision_low) = 0;
 
 %% calcul du nombre d'erreur
-%xor(message,r)
 transmission_error_by_canal = sum(xor(message,r));
 transmission_errors_total = sum(sum(xor(message,r))');
 
-%compte l   
 
 %% Recepteur simplifie
 % la realisation d'un filtre ideal est tres couteux en ressources; Dans les
