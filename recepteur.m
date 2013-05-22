@@ -41,18 +41,20 @@ for i = 1:N-1
     filtres_coeff (:,1+i) = freqs(b, a, f_freqs)';
 end
 
-% Symetrie des filtres pour ajouter les frequences miroires
+% Symetrie, frequences miroires
 filtres_a = zeros(2*l_dac,N);
-%filtres_a = zeros(l_dac,N);
 filtres_a(1:l_dac,:) = filtres_coeff;
 filtres_a(2*l_dac:-1:l_dac+1,:) = conj(filtres_coeff);
 
 % Calcul de la reponse impulsionnelle des filtres
 filtres_a_temporel = real(ifft(filtres_a));
 filtres_a_temporel = fliplr(filtres_a_temporel')';
+filtres_a_temporel = filtres_a_temporel(1:500,:); %troncature aux 500 premiers échantillons
 
-
-
+f_tronc = zeros(l_dac,N);
+for i = 1:N
+    f_tronc(:,i)=fft(filtres_a_temporel(:,i),l_dac);
+end
 
 % filtrage du signal recu par la convolution avec le filtre 
 recepteur_signal_anal_conv = zeros(length(conv(canal_final,filtres_a_temporel(:,1))),N);
@@ -162,18 +164,13 @@ for i=1:N
     recepteur_retards(1,i) = recepteur_xcorr_y(recepteur_xcorr_max_indice(1,i),i);   
 end
 
-%stem(recepteur_retards) %affichage des retards
-%t_i = (randi(10,1,1)-5)/100;+floor(t_i*L*beta) invertitude sur l'instant
-%de synchro
-
-
-an_k = zeros(m,N); %matrice des symboles
-k = zeros(m,N); %autre matrice des symboles
-k0 = zeros(1,N); %matrice des dï¿½calages
+symboles = zeros(m,N); %matrice des symboles
+indices_delai = zeros(m,N); %autre matrice des symboles
+m_delay = zeros(1,N); %matrice des dï¿½calages
 for i = 1:N
-    k0(:,i) = recepteur_retards(1,i)+L*beta; %L*beta = un echantantillon dans la base temps du filtre + retard. Si pas de retard, on prend la valeur en L*beta
-    k(:,i) = ((k0(:,i)+1):beta:(k0(:,i)+m*beta));
-    an_k(:,i) = signal_FA(k(:,i),i);
+    m_delay(:,i) = recepteur_retards(1,i)+L*beta; %L*beta = un echantantillon dans la base temps du filtre + retard. Si pas de retard, on prend la valeur en L*beta
+    indices_delai(:,i) = ((m_delay(:,i)+1):beta:(m_delay(:,i)+m*beta));
+    symboles(:,i) = signal_FA(indices_delai(:,i),i);
 end
 
 %% prise de decision
@@ -190,7 +187,7 @@ end
 
 % a ete simplifie par manque de temps 
 
-r = an_k;
+r = symboles;
 r(r>recepteur_decision_high) = 1;
 r(r<recepteur_decision_low) = 0;
 

@@ -5,8 +5,8 @@
 
 %% general
 % nombre de messages a envoyer
-n = 1;      % [nombre]
-m = 50;       % [bits utiles a envoyer]
+n = 3;      % [nombre]
+m = 6;       % [bits utiles a envoyer]
 sequence_pilote = [1 0 1 1]'; 
 
 % debit binaire
@@ -53,8 +53,8 @@ type_filtre = 'B';
 resolution_adc = 2;      %bits
 
 % prise de décision
-recepteur_decision_high = 0.01;
-recepteur_decision_low = 0.01;
+recepteur_decision_high = 0.2;
+recepteur_decision_low = -0.2;
 
 
 

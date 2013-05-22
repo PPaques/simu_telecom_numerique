@@ -30,9 +30,9 @@ params;      % chargement des parametres
 %% on surcharge le nombre de bits a transmettre et le nombre de cannaux
 n=3;    % nombre de cannaux
 N=n;
-m = 50; % nombre de messages
-type = 'compslete'; % complete
-nombre_calc_by_point = 100;
+m = 10; % nombre de messages
+type = 'complete'; % complete
+nombre_calc_by_point = 250;
 calc_params; % calcul des variables dependant des parametres de simulations
 
 
@@ -46,12 +46,13 @@ resultats_ber_chebby = zeros(nombre_calc_by_point,N);
 
 compteur=1;
 total_simulation_to_do = length(Eb_under_n0_vector)*nombre_calc_by_point;
+total_bits_tranmis = (m+4)*N * nombre_calc_by_point * 10;
 
 % On passe par tous les SNR possibles
 for eb = 1:length(Eb_under_n0_vector)
     % on doit surcharger la valeur du SNR. 
     % Attention elle est en  DB
-    snr=snr_vector(eb);
+    snr=Eb_under_n0_vector(eb);
     
     disp(['SNR :',num2str(snr)])
     
@@ -81,6 +82,11 @@ end
 %% moyenne des erreurs
 bit_error_rate_practical_butter = mean(resultats_ber_butter);
 bit_error_rate_practical_chebby = mean(resultats_ber_chebby);
+
+
+disp(['nombre total de bits transmis : ',num2str(total_bits_tranmis)]);
+disp(['nombre total erreur butter    : ',num2str(bit_error_rate_practical_butter)]);
+disp(['nombre total erreur chebby    : ',num2str(bit_error_rate_practical_chebby)]);
 
 %% Courbe theorique
 BER_theorique = 0.5*erfc(sqrt(10.^(Eb_under_n0_vector/10)));

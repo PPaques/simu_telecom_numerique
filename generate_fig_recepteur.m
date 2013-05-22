@@ -25,19 +25,24 @@ end
    
     % affichage du filtrage du signal
 	figure
-    amp = max(abs(fft(R_tot)));
-    plot(fi,2*amp*abs(H_tronc(:,:)),fi*2,abs(fft(R_tot)))
+    amp = max(abs(fft(canal_final)));
+    %plot(f_freqs,2*amp*abs(f_tronc),f_freqs*2,abs(fft(canal_final)))
+    plot(f_freqs,amp*abs(f_tronc),f_freqs,abs(fft(canal_final(1:(size(canal_final)-100),:))));
     title(['Filtrage aux differentes porteuses'])
-    axis([0 (2*N/Tb) 0 amp*1.5])
+    axis([0 (2*N/T_b) 0 amp*1.5])
     xlabel('Frequence (Hz)')
     ylabel('Amplitude du spectre')    
     grid
     
     % signal filtre aux differentes porteuses
     figure
-    plot(frn,abs(fft(rn_an)))
+    amp = max(abs(fft(canal_final)));
+    signal_fft_tronq = abs(fft(recepteur_signal_anal_conv));
+    signal_fft_tronq = signal_fft_tronq(1:1000,:);
+    freq = (Fa/2)*(0:1:(length(recepteur_signal_anal_conv)-1))/length(recepteur_signal_anal_conv);
+    plot(freq(1,1:1000),signal_fft_tronq)
     title(['Signal filtre aux differentes porteuses'])
-    axis([0 (2*(N-1)/Tb+Bp/(2*pi)) 0 amp/2]) 
+    axis([0 (2*(N-1)/T_b+b_pass/(2*pi)) 0 amp]) 
     xlabel('Frequence (Hz)')
     ylabel('Amplitude du spectre')    
     grid
@@ -82,16 +87,16 @@ axis([recepteur_retards(1,1)*T_n (length(recepteur_sync_seq_pilote)+recepteur_re
 title(['Synchronisation de la sequence pilote sur le signal R tot 0(t) filtre']);
 xlabel('Temps (s)');
 ylabel('Amplitude du signal') ;
-legend('Signal reçu','Sequence pilote');
+legend('Signal recu','Sequence pilote');
 grid
 
 % affichage des instants d'echantillonnage
 for i = 1:N
     amp = max(abs(signal_FA(:,i)))*1.20;
     figure (50+i)
-    plot(T_n_FA,signal_FA(:,i),'',T_n_FA(k(:,i)),signal_FA(k(:,i),i),'*');
+    plot(T_n_FA,signal_FA(:,i),'',T_n_FA(indices_delai(:,i)),signal_FA(indices_delai(:,i),i),'*');
     title(['Estimation des symboles sur le signal R tot ',int2str(i),'(t)']);
     xlabel('Temps (s)'); ylabel('Amplitude du signal') ;
-    legend('Signal reçu','Symboles estimes');
+    legend('Signal recu','Symboles estimes');
     grid
 end

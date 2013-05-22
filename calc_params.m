@@ -27,8 +27,10 @@ T_a = T_n / gamma;
 % le tableau. Le nombre doit etre compris entre 0 et beta*gamma car le nombre
 % d’echantillons pour t_b est ce nombre
 if exist('bonus_mode')
+else
     tau_n = randi([0 beta*gamma],1,N);
 end
+
 %% recepteur
 %bande passante pour chaque fr�quence
 b_pass = (1+alpha)/(2*T_b); 
